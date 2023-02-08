@@ -1,5 +1,6 @@
 # Team - enigma
-This team repository centralizes all collaborative projects for efficient sharing, tracking and teamwork.
+This team repository centralizes all collaborative projects for efficient sharing, tracking and teamwork.  
+**Members** - *Aman, Chacko, Sindhu, Shashwath and Siraj*
 
 # Project Branching Workflow for Team
 
@@ -19,5 +20,3 @@ This branching workflow is designed to keep the codebase stable and ensure that 
 
 ## Conclusion
 By following this branching workflow, we can ensure that the main branch is always in a stable state and that new features are thoroughly reviewed before being merged into the main codebase.
-
-## Members: *Aman, Chacko, Sindhu, Shashwath and Siraj.*
