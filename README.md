@@ -1,7 +1,7 @@
 # Team - enigma
 This team repository centralizes all collaborative projects for efficient sharing, tracking and teamwork.  
 
-Members - *Aman, Chacko, Sindhu, Shashwath and Siraj*
+Members - *Aman, Chacko, Sindhu, Shashwath and Siraj.*
 
 # Project Branching Workflow for Team
 
