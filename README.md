@@ -20,4 +20,5 @@ This branching workflow is designed to keep the codebase stable and ensure that 
 ## Conclusion
 By following this branching workflow, we can ensure that the main branch is always in a stable state and that new features are thoroughly reviewed before being merged into the main codebase.
 
-Members: Aman, Chacko, Sindhu, Shashwath and Siraj.
+## Members:
+**Aman, Chacko, Sindhu, Shashwath and Siraj.**
