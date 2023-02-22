@@ -4,6 +4,15 @@ from rich.text import Text
 
 
 class IntroDisplay:
+    """
+    Class for displaying the game introduction and rules.
+
+    Attributes:
+        banner (rich.markdown.Markdown): A markdown object containing the game banner.
+        rule_title (rich.text.Text): A text object containing the title of the game rules section.
+        rules (list): A list of strings containing the game rules.
+    """
+
     def __init__(self):
         self.banner = Markdown(
             """
@@ -31,12 +40,18 @@ class IntroDisplay:
         ]
 
     def show_game_intro(self):
+        """
+        Displays the game banner and a message indicating the start of the game.
+        """
         console.print(self.banner, style="bold rgb(48,227,223) blink")
         console.print("\n")
         console.print("Let the Fun begins. :alien:", style="green")
         console.print("\n")
 
     def explain_game_rules(self):
+        """
+        Displays the game rules section with a title and a list of rules.
+        """
         console.rule(self.rule_title, style="bright_yellow")
         console.print("\n")
         for rule in self.rules:
