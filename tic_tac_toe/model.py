@@ -1,4 +1,7 @@
 from typing import List
+from utils import console
+from rich.text import Text
+from rich.prompt import Prompt
 
 
 class Players:
@@ -32,7 +35,71 @@ class Game:
         """
         self.board = [[[" ", "green"] for _ in range(3)] for _ in range(3)]
 
-    def check_win(self, player_mark):
+    def player_move(
+        self, player_name: str, player_color: str, player_mark: str, mark_color: str
+    ) -> List[List[str]]:
+        """
+        Handles a player's move in the game. Displays the current player's name and mark color, prompts the player
+        to enter a row and column for their move, checks if the chosen position is available, updates the board
+        if it is, and returns the updated board.
+
+        Args:
+            player_name (str): The name of the player who is making the move.
+            player_color (str): The color of the player's name (e.g. "red", "blue").
+            player_mark (str): The symbol that the player is using for their moves (e.g. "X", "O").
+            mark_color (str): The color of the player's symbol (e.g. "green", "yellow").
+
+        Returns:
+            List of lists representing the updated game board after the player's move.
+
+        Raises:
+            None.
+
+        Example:
+            board = [[[' ', 'green'], [' ', 'green'], [' ', 'green']], [[' ', 'green'], [' ', 'green'], [' ', 'green']], [[' ', 'green'], [' ', 'green'], [' ', 'green']]]
+            player_move("John", "blue", "X", "red")
+            # prompts user to enter row and column numbers
+            # if user enters 2 and 3
+            # returns board = [[[' ', 'green'], [' ', 'green'], [' ', 'green']], [[' ', 'green'], [' ', 'green'], ['X', 'red']], [[' ', 'green'], [' ', 'green'], [' ', 'green']]]
+        """
+
+        # Prints the current player's name and their mark color in a bold and blinking
+        console.print(
+            Text(f"{player_name}'S MOVE -", style=f"bold {player_color} blink"),
+            Text(player_mark, style=f"bold {mark_color} blink"),
+        )
+        while True:
+            # Asks the player to enter the row number, with choices of 1, 2, or 3
+            row = (
+                int(
+                    Prompt.ask(
+                        Text("Enter row number", style="green"), choices=["1", "2", "3"]
+                    )
+                )
+                - 1
+            )
+            # Asks the player to enter the column number, with choices of 1, 2, or 3
+            col = (
+                int(
+                    Prompt.ask(
+                        Text("Enter column number", style="green"),
+                        choices=["1", "2", "3"],
+                    )
+                )
+                - 1
+            )
+            # Check if the position is already occupied
+            if self.board[row][col][0] != " ":
+                console.print(
+                    "That position is already occupied. Please choose a different position.",
+                    style="red",
+                )
+                continue
+            # update the board with the entered position
+            self.board[row][col] = [player_mark, mark_color]
+            return self.board
+
+    def check_win(self, player_mark: str) -> bool:
         """
         Checks if the specified player has won the game.
 
@@ -57,7 +124,7 @@ class Game:
             return True
         return False
 
-    def check_tie(self):
+    def check_tie(self) -> bool:
         """
         Checks if the game has ended in a tie.
 
