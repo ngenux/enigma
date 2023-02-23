@@ -7,17 +7,19 @@
 This is a Tic Tac Toe game developed in Python using the Rich module for a better user interface. 
 
 ## Installation
+1. Ensure that Python 3.7 or higher is installed on your machine.
 
-1. Clone the repository:  
+2. Clone the repository:  
       >``git clone https://github.com/ngenux/enigma.git``
 
-2. Install the required dependencies:  
+3. Install the required dependencies:  
       >``pip install -r requirements.txt``
 
 ## How to Play
 
-1. Run the tictactoe.py file and start playing.  
-    >``python tictactoe.py ``
+1. Run the *tictactoe.py* file and start playing: 
+ 
+      >``python tictactoe.py ``
 
 ## Features
 
