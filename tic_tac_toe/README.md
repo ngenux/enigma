@@ -2,7 +2,7 @@
 
 [![DALL-E-2023-02-23-11-22-01.png](https://i.postimg.cc/R0WPn5yw/DALL-E-2023-02-23-11-22-01.png)](https://postimg.cc/nstK65HL)
 
-![versions](https://img.shields.io/pypi/pyversions/pybadges.svg)  [![Rich Version](https://img.shields.io/badge/rich-13.3.1-brightgreen.svg)](https://pypi.org/project/rich/)
+![versions](https://img.shields.io/pypi/pyversions/pybadges.svg)        [![Rich Version](https://img.shields.io/badge/rich-13.3.1-brightgreen.svg)](https://pypi.org/project/rich/)
 
 This is a Tic Tac Toe game developed in Python using the Rich module for a better user interface. 
 
