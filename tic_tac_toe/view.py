@@ -2,6 +2,7 @@ from utils import console
 from rich.markdown import Markdown
 from rich.text import Text
 import subprocess, sys
+from model import Game, Players
 
 
 class IntroDisplay:
@@ -111,11 +112,10 @@ class GameDisplay:
         - game_instance (Game): An instance of the `Game` class that represents the current state of the game.
         - players_instance (Players): An instance of the `Players` class that represents the current players in the game.
         """
-        self.board = game_instance.board
         self.game = game_instance
         self.players = players_instance
 
-    def display_board(self, round):
+    def display_board(self, round: int):
         """
         Display the current state of the game board.
 
@@ -142,19 +142,20 @@ class GameDisplay:
                 if j == 0:
                     # for the first element in the row, print a leading space
                     console.print(
-                        f" {self.board[i][j][0]}",
-                        style=f"bold {self.board[i][j][1]}",
+                        f" {self.game.board[i][j][0]}",
+                        style=f"bold {self.game.board[i][j][1]}",
                         end=" ",
                     )
                 elif j == 2:
                     # for the last element in the row, print a trailing space
                     console.print(
-                        f"{self.board[i][j][0]} ", style=f"bold {self.board[i][j][1]}"
+                        f"{self.game.board[i][j][0]} ",
+                        style=f"bold {self.game.board[i][j][1]}",
                     )
                 else:
                     console.print(
-                        f"{self.board[i][j][0]}",
-                        style=f"bold {self.board[i][j][1]}",
+                        f"{self.game.board[i][j][0]}",
+                        style=f"bold {self.game.board[i][j][1]}",
                         end=" ",
                     )
                 # If the current column is not the last, print the column seperator
