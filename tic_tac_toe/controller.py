@@ -27,34 +27,34 @@ class PlayerManager:
         initialize_player_scores: Initializes the scores of the two players to 0.
     """
 
-    def __init__(self, players_instance: Players):
+    def __init__(self, players_instance: Players) -> None:
         self.players = players_instance
 
-    def get_player_names(self):
+    def get_player_names(self) -> None:
         """Prompts the user to enter the names of the two players."""
         pass
 
-    def get_player_colors(self):
+    def get_player_colors(self) -> None:
         """Generates colors for the two players."""
         pass
 
-    def greet_players(self):
+    def greet_players(self) -> None:
         """Greets the two players and displays their names and colors."""
         pass
 
-    def shuffle_players(self):
+    def shuffle_players(self) -> None:
         """Shuffles the order of the players and their colors."""
         pass
 
-    def get_mark_colors(self):
+    def get_mark_colors(self) -> None:
         """Generates colors for the X and O marks."""
         pass
 
-    def get_player_marks(self):
+    def get_player_marks(self) -> None:
         """Prompts the user to choose their mark (X or O) and displays it."""
         pass
 
-    def initialize_player_scores(self):
+    def initialize_player_scores(self) -> None:
         """Initializes the scores of the two players to 0."""
         pass
 
@@ -74,7 +74,7 @@ class GameManager:
         game_over(): Prompts the user to play another round or quit the game.
     """
 
-    def __init__(self, game_display_instance: GameDisplay):
+    def __init__(self, game_display_instance: GameDisplay) -> None:
         """
         Initializes the GameManager instance.
 
@@ -83,7 +83,7 @@ class GameManager:
         """
         self.game_display = game_display_instance
 
-    def game_loop(self, round):
+    def game_loop(self, round) -> None:
         """
         Manages the game flow for a single round.
 
@@ -98,7 +98,7 @@ class GameManager:
         """
         pass
 
-    def game_over(self):
+    def game_over(self) -> bool:
         """
         Prompts the user to play another round or quit the game.
 
@@ -138,7 +138,7 @@ class GameOptionManager:
         game_instance: Game,
         player_instance: Players,
         player_manager_instance: PlayerManager,
-    ):
+    ) -> None:
         """
         Initializes a new instance of the GameOptionManager class.
 
@@ -155,7 +155,7 @@ class GameOptionManager:
         self.players = player_instance
         self.player_manager = player_manager_instance
 
-    def start_game(self):
+    def start_game(self) -> None:
         """
         Prompts the user to start the game and shuffles the players if they agree.
 
@@ -166,7 +166,7 @@ class GameOptionManager:
         """
         pass
 
-    def exit_game(self):
+    def exit_game(self) -> bool:
         """
         Prompts the user if they want to exit the game and quits if they agree.
 
@@ -177,7 +177,7 @@ class GameOptionManager:
         """
         pass
 
-    def restart_game(self):
+    def restart_game(self) -> None:
         """
         Clears the console screen, displays a message and waits for 3 seconds before restarting the game.
         """
