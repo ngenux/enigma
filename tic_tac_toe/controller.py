@@ -56,6 +56,8 @@ class PlayerManager:
 
     def initialize_player_scores(self) -> None:
         """Initializes the scores of the two players to 0."""
+        self.players.player_scores = [0,0]
+
         pass
 
 
@@ -74,7 +76,11 @@ class GameManager:
         game_over(): Prompts the user to play another round or quit the game.
     """
 
-    def __init__(self, game_display_instance: GameDisplay) -> None:
+    def __init__(
+        self, 
+        game_display_instance: GameDisplay,
+        game_instance: Game,
+        players_instance: Players) -> None:
         """
         Initializes the GameManager instance.
 
@@ -82,6 +88,8 @@ class GameManager:
             game_display_instance (GameDisplay): An instance of the `GameDisplay` class.
         """
         self.game_display = game_display_instance
+        self.game = game_instance
+        self.players = players_instance
 
     def game_loop(self, round) -> None:
         """
@@ -96,6 +104,40 @@ class GameManager:
         Returns:
             list: A list of the current scores for each player.
         """
+
+        self.game_display.display_board(board, round)
+    # current player variable is set to 0
+        current_player = 0
+        while True:
+            # calls the player_move function to let the current player make a move
+            board = self.game.player_move(
+                board,
+                self.players.player_names[current_player],
+                self.players.player_colors[current_player],
+                self.players.player_marks[current_player],
+                self.players.mark_colors[current_player],
+            )
+            # displays the updated board after move
+            self.game_display.display_board(board, round)
+            # checks if the current player has won
+            if self.game.check_win(board, self.players.player_marks[current_player]):
+                console.print(
+                    Text("Congratulations", style="green"),
+                    Text(
+                        self.players.player_names[current_player],
+                        style= self.players.player_colors[current_player],
+                    ),
+                    Text("you have won the game!", style="green"),
+                )
+                # increase the current player's score
+                self.players.player_scores[current_player] += 1
+                return self.players.player_scores
+            # checks if the game is a tie
+            if self.game.check_tie(board):
+                console.print("The game is a tie!", style="green")
+                return  self.players.player_scores
+            # changes the current player to the next player
+            current_player = (current_player + 1) % 2
         pass
 
     def game_over(self) -> bool:
@@ -105,7 +147,15 @@ class GameManager:
         Returns:
             bool: `True` if the user wants to play another round, `False` otherwise.
         """
-        pass
+        choice = Prompt.ask(
+            Text("Do you want to play another round?", style="green"),
+            choices=["yes", "no"],
+        )
+        if choice == "yes":
+            return True
+        else:
+            return False
+            pass
 
 
 class GameOptionManager:
