@@ -56,7 +56,7 @@ class PlayerManager:
 
     def initialize_player_scores(self) -> None:
         """Initializes the scores of the two players to 0."""
-        self.players.player_scores = [0,0]
+        self.players.player_scores = [0, 0]
 
         pass
 
@@ -77,10 +77,11 @@ class GameManager:
     """
 
     def __init__(
-        self, 
+        self,
         game_display_instance: GameDisplay,
         game_instance: Game,
-        players_instance: Players) -> None:
+        players_instance: Players,
+    ) -> None:
         """
         Initializes the GameManager instance.
 
@@ -106,7 +107,7 @@ class GameManager:
         """
 
         self.game_display.display_board(board, round)
-    # current player variable is set to 0
+        # current player variable is set to 0
         current_player = 0
         while True:
             # calls the player_move function to let the current player make a move
@@ -125,7 +126,7 @@ class GameManager:
                     Text("Congratulations", style="green"),
                     Text(
                         self.players.player_names[current_player],
-                        style= self.players.player_colors[current_player],
+                        style=self.players.player_colors[current_player],
                     ),
                     Text("you have won the game!", style="green"),
                 )
@@ -135,7 +136,7 @@ class GameManager:
             # checks if the game is a tie
             if self.game.check_tie(board):
                 console.print("The game is a tie!", style="green")
-                return  self.players.player_scores
+                return self.players.player_scores
             # changes the current player to the next player
             current_player = (current_player + 1) % 2
         pass
@@ -164,10 +165,6 @@ class GameOptionManager:
 
     Attributes:
     -----------
-    game_instance: Game
-        An instance of the Game class.
-    player_instance: Players
-        An instance of the Players class.
     player_manager_instance: PlayerManager
         An instance of the PlayerManager class.
 
@@ -185,8 +182,6 @@ class GameOptionManager:
 
     def __init__(
         self,
-        game_instance: Game,
-        player_instance: Players,
         player_manager_instance: PlayerManager,
     ) -> None:
         """
@@ -201,8 +196,6 @@ class GameOptionManager:
         player_manager_instance: PlayerManager
             An instance of the PlayerManager class.
         """
-        self.game = game_instance
-        self.players = player_instance
         self.player_manager = player_manager_instance
 
     def start_game(self) -> None:
