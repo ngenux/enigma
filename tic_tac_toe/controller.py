@@ -76,10 +76,7 @@ class GameManager:
         game_over(): Prompts the user to play another round or quit the game.
     """
 
-    def __init__(
-        self,
-        game_display_instance: GameDisplay,
-    ) -> None:
+    def __init__(self,game_display_instance: GameDisplay) -> None:
         """
         Initializes the GameManager instance.
 
@@ -87,6 +84,7 @@ class GameManager:
             game_display_instance (GameDisplay): An instance of the `GameDisplay` class.
         """
         self.game_display = game_display_instance
+
 
     def game_loop(self, round) -> None:
         """
@@ -178,7 +176,7 @@ class GameOptionManager:
 
     def __init__(
         self,
-        player_manager_instance: PlayerManager,
+        player_manager_instance: PlayerManager
     ) -> None:
         """
         Initializes a new instance of the GameOptionManager class.
