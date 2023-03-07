@@ -110,7 +110,7 @@ class GameManager:
                 self.game_display.players.player_names[current_player],
                 self.game_display.players.player_colors[current_player],
                 self.game_display.players.player_marks[current_player],
-                self.game_display.players.mark_colors[current_player],
+                self.game_display.players.mark_colors[current_player]
             )
             # displays the updated board after move
             self.game_display.display_board(board, round)
@@ -144,7 +144,7 @@ class GameManager:
         """
         choice = Prompt.ask(
             Text("Do you want to play another round?", style="green"),
-            choices=["yes", "no"],
+            choices=["yes", "no"]
         )
         if choice == "yes":
             return True
