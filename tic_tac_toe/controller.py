@@ -32,10 +32,15 @@ class PlayerManager:
 
     def get_player_names(self) -> None:
         """Prompts the user to enter the names of the two players."""
+
+        self.players.player_names.append(Prompt.ask(Text("Please Enter Player1 Name", style="green")))
+        self.players.player_names.append(Prompt.ask(Text("Please Enter Player2 Name", style="green")))
         pass
 
     def get_player_colors(self) -> None:
         """Generates colors for the two players."""
+        gmTools = GameTools()
+        self.players.player_colors.extend(gmTools.generate_colors())
         pass
 
     def greet_players(self) -> None:
@@ -48,10 +53,17 @@ class PlayerManager:
 
     def get_mark_colors(self) -> None:
         """Generates colors for the X and O marks."""
+        gmTools = GameTools()
+        self.players.mark_colors.extend(gmTools.generate_colors())
         pass
 
     def get_player_marks(self) -> None:
         """Prompts the user to choose their mark (X or O) and displays it."""
+        options = ['X','O']
+        self.players.player_marks.append(Prompt.ask(Text("{} Select you mark".format(self.players.player_names[0]), style="green"),
+                                        choices = options))
+        options.remove(self.players.player_marks[0])
+        self.players.player_marks.append(options[0])
         pass
 
     def initialize_player_scores(self) -> None:
