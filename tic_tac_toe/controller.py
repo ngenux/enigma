@@ -34,15 +34,26 @@ class PlayerManager:
     def get_player_names(self) -> None:
         """Prompts the user to enter the names of the two players."""
         while True:
-            player1 = Prompt.ask(Text("Please enter first player name", style="green"), default='Player1').upper()
-            player2 = Prompt.ask(Text("Please enter second player name", style="green"), default='Player2').upper()
+            player1 = Prompt.ask(
+                Text("Please enter first player name", style="green"), default="Player1"
+            ).upper()
+            player2 = Prompt.ask(
+                Text("Please enter second player name", style="green"),
+                default="Player2",
+            ).upper()
 
             if not player1.isalnum() or not player2.isalnum():
-                console.print("Player names can contain only alpha numeric characters", style = 'red')
+                console.print(
+                    "Player names can contain only alpha numeric characters",
+                    style="red",
+                )
 
-            elif player1==player2:
-                console.print("Both players cannot have same names, please enter the names again", style = 'red')
-            
+            elif player1 == player2:
+                console.print(
+                    "Both players cannot have same names, please enter the names again",
+                    style="red",
+                )
+
             else:
                 self.players.player_names = [player1, player2]
                 break
@@ -51,17 +62,22 @@ class PlayerManager:
         """Generates colors for the two players."""
         self.players.player_colors = GameTools.generate_colors()
 
-
     def greet_players(self) -> None:
         """Greets the two players and displays their names and colors."""
 
-        console.print(Text("Welcome", style = 'bold green'), 
-                    Text(self.players.player_names[0], style = 'bold '+ self.players.player_colors[0]),
-                    Text("and", style = 'green'),
-                    Text(self.players.player_names[1], style = 'bold '+ self.players.player_colors[1]),
-                    Text("Let the game begin!!!", style = 'green')
-                    )
-                    
+        console.print(
+            Text("Welcome", style="bold green"),
+            Text(
+                self.players.player_names[0],
+                style="bold " + self.players.player_colors[0],
+            ),
+            Text("and", style="green"),
+            Text(
+                self.players.player_names[1],
+                style="bold " + self.players.player_colors[1],
+            ),
+            Text("Let the game begin!!!", style="green"),
+        )
 
     def shuffle_players(self) -> None:
         """Shuffles the order of the players and their colors."""
@@ -70,39 +86,46 @@ class PlayerManager:
         GameTools.animate_shuffle()
         random.shuffle(self.players.player_names)
 
-        if tmp[0]!=self.players.player_names[0]:
+        if tmp[0] != self.players.player_names[0]:
             self.players.player_colors = self.players.player_colors.reverse()
-
-        
+            self.players.player_scores = self.players.player_scores.reverse()
 
     def get_mark_colors(self) -> None:
         """Generates colors for the X and O marks."""
         self.players.mark_colors = GameTools.generate_colors()
 
     def get_player_marks(self) -> None:
-        """Prompts the user to choose their mark (X or O) and displays it."""        
-        console.print("\nChoose your mark", style = 'bold green underline')
+        """Prompts the user to choose their mark (X or O) and displays it."""
+        console.print("\nChoose your mark", style="bold green underline")
 
-        choice = Prompt.ask(Text(self.players.player_names[0], style=self.players.player_colors[0]),
-                                        choices = ['x', 'o'], 
-                                        default = 'x', 
-                                        show_default = False).upper()
+        choice = Prompt.ask(
+            Text(self.players.player_names[0], style=self.players.player_colors[0]),
+            choices=["x", "o"],
+            default="x",
+            show_default=False,
+        ).upper()
 
-        self.players.player_marks = [choice]+[i for i in ['X', 'O'] if i!=choice]
+        self.players.player_marks = [choice] + [i for i in ["X", "O"] if i != choice]
 
-        console.print(Text(self.players.player_names[0], style=self.players.player_colors[0]),
-                    Text(f"- {self.players.player_marks[0]}", style=f"{self.players.mark_colors[0]}",),
-                    Text(self.players.player_names[1], style=self.players.player_colors[1]),
-                    Text(f"- {self.players.player_marks[1]}",style=f"{self.players.mark_colors[1]}",)
+        console.print(
+            Text(self.players.player_names[0], style=self.players.player_colors[0]),
+            Text(
+                f"- {self.players.player_marks[0]}",
+                style=f"{self.players.mark_colors[0]}",
+            ),
+            Text(self.players.player_names[1], style=self.players.player_colors[1]),
+            Text(
+                f"- {self.players.player_marks[1]}",
+                style=f"{self.players.mark_colors[1]}",
+            ),
         )
         console.print("Starting game..", style="green")
-         
-        time.sleep(3)       
+
+        time.sleep(3)
 
     def initialize_player_scores(self) -> None:
         """Initializes the scores of the two players to 0."""
         self.players.player_scores = [0, 0]
-
 
 
 class GameManager:
@@ -120,7 +143,7 @@ class GameManager:
         game_over(): Prompts the user to play another round or quit the game.
     """
 
-    def __init__(self,game_display_instance: GameDisplay) -> None:
+    def __init__(self, game_display_instance: GameDisplay) -> None:
         """
         Initializes the GameManager instance.
 
@@ -128,7 +151,6 @@ class GameManager:
             game_display_instance (GameDisplay): An instance of the `GameDisplay` class.
         """
         self.game_display = game_display_instance
-
 
     def game_loop(self, round) -> None:
         """
@@ -153,12 +175,14 @@ class GameManager:
                 self.game_display.players.player_names[current_player],
                 self.game_display.players.player_colors[current_player],
                 self.game_display.players.player_marks[current_player],
-                self.game_display.players.mark_colors[current_player]
+                self.game_display.players.mark_colors[current_player],
             )
             # displays the updated board after move
             self.game_display.display_board(round)
             # checks if the current player has won
-            if self.game_display.game.check_win(self.game_display.players.player_marks[current_player]):
+            if self.game_display.game.check_win(
+                self.game_display.players.player_marks[current_player]
+            ):
                 console.print(
                     Text("Congratulations", style="green"),
                     Text(
@@ -186,13 +210,12 @@ class GameManager:
         """
         choice = Prompt.ask(
             Text("Do you want to play another round?", style="green"),
-            choices=["yes", "no"]
+            choices=["yes", "no"],
         )
         if choice == "yes":
             return True
         else:
             return False
-            
 
 
 class GameOptionManager:
@@ -216,10 +239,7 @@ class GameOptionManager:
         Clears the console screen, displays a message and waits for 3 seconds before restarting the game.
     """
 
-    def __init__(
-        self,
-        player_manager_instance: PlayerManager
-    ) -> None:
+    def __init__(self, player_manager_instance: PlayerManager) -> None:
         """
         Initializes a new instance of the GameOptionManager class.
 
@@ -257,7 +277,6 @@ class GameOptionManager:
                     quit()
                 else:
                     continue
-        
 
     def exit_game(self) -> bool:
         """
@@ -269,19 +288,20 @@ class GameOptionManager:
             True if the user agrees to exit, False otherwise.
         """
         exit_game = str(
-                Prompt.ask(Text("Do you want to exit?", style="green"), choices=["yes", "no"])
+            Prompt.ask(
+                Text("Do you want to exit?", style="green"), choices=["yes", "no"]
             )
+        )
         # If the player chooses 'yes', the function prints a farewell message and returns True
         if exit_game == "yes":
-                console.print(
-                    "Thanks for playing! We hope you had a blast. See you next time for more fun and excitement!",
-                    style="italic yellow",
-                )
-                return True
+            console.print(
+                "Thanks for playing! We hope you had a blast. See you next time for more fun and excitement!",
+                style="italic yellow",
+            )
+            return True
         # If the player chooses 'no', the function returns False
         else:
-                return False
-        
+            return False
 
     def restart_game(self) -> None:
         """
@@ -290,4 +310,3 @@ class GameOptionManager:
         subprocess.run(["cls" if sys.platform == "win32" else "clear"], shell=True)
         console.print("Restarting Game..")
         time.sleep(3)
-    
