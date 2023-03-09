@@ -1,4 +1,3 @@
-from email.policy import default
 import random, time
 from rich.text import Text
 from rich.prompt import Prompt
