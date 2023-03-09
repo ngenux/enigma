@@ -64,19 +64,18 @@ class PlayerManager:
 
     def greet_players(self) -> None:
         """Greets the two players and displays their names and colors."""
-
         console.print(
-            Text("Welcome", style="bold green"),
+            Text("WELCOME", style="bold green"),
             Text(
                 self.players.player_names[0],
-                style="bold " + self.players.player_colors[0],
+                style=f"bold {self.players.player_colors[0]}",
             ),
-            Text("and", style="green"),
+            Text("AND", style="green"),
             Text(
                 self.players.player_names[1],
-                style="bold " + self.players.player_colors[1],
+                style=f"bold {self.players.player_colors[1]}",
             ),
-            Text("Let the game begin!!!", style="green"),
+            Text("Let the game begin!", style="green"),
         )
 
     def shuffle_players(self) -> None:
