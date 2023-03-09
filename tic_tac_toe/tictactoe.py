@@ -35,18 +35,7 @@ if __name__ == "__main__":
             game_manager = GameManager(game_display)
             players.player_scores = game_manager.game_loop(round)
             # Display the scores
-            console.print(
-                Text("SCORES:", style="green"),
-                Text(
-                    f"{players.player_names[0]}-{players.player_scores[0]}",
-                    style=players.player_colors[0],
-                ),
-                Text("AND", style="green"),
-                Text(
-                    f"{players.player_names[1]}-{players.player_scores[1]}",
-                    style=players.player_colors[1],
-                ),
-            )
+            game_display.display_scores()
             # Check if the game is over and ask the player for another round
             if game_manager.game_over():
                 console.print("Gear up for another round!", style="green")
