@@ -213,7 +213,21 @@ class GameOptionManager:
         List[str]:
             A list of player names in a random order.
         """
-        pass
+        while True:
+            game_start_response = Prompt.ask(
+                Text("Ready to start the game?", style="green"),
+                default="yes",
+                choices=["yes", "no"],
+                show_default=False,
+            )
+            if game_start_response == "yes":
+                return self.player_manager.shuffle_players()
+            elif game_start_response == "no":
+                if self.exit_game():
+                    quit()
+                else:
+                    continue
+        
 
     def exit_game(self) -> bool:
         """
@@ -224,10 +238,26 @@ class GameOptionManager:
         bool:
             True if the user agrees to exit, False otherwise.
         """
-        pass
+        exit_game = str(
+                Prompt.ask(Text("Do you want to exit?", style="green"), choices=["yes", "no"])
+            )
+        # If the player chooses 'yes', the function prints a farewell message and returns True
+        if exit_game == "yes":
+                console.print(
+                    "Thanks for playing! We hope you had a blast. See you next time for more fun and excitement!",
+                    style="italic yellow",
+                )
+                return True
+        # If the player chooses 'no', the function returns False
+        else:
+                return False
+        
 
     def restart_game(self) -> None:
         """
         Clears the console screen, displays a message and waits for 3 seconds before restarting the game.
         """
-        pass
+        subprocess.run(["cls" if sys.platform == "win32" else "clear"], shell=True)
+        console.print("Restarting Game..")
+        time.sleep(3)
+    
