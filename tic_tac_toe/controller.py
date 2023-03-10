@@ -59,62 +59,52 @@ class PlayerManager:
 
     def get_player_colors(self) -> None:
         """Generates colors for the two players."""
-        self.players.player_colors = GameTools.generate_colors()
+        player_colors = GameTools.generate_colors()
+        for player in self.players.player_names:
+            self.players.player_colors[player] = player_colors.pop()
 
     def greet_players(self) -> None:
         """Greets the two players and displays their names and colors."""
+        player1, player2 = self.players.player_names
         console.print(
             Text("WELCOME", style="bold green"),
-            Text(
-                self.players.player_names[0],
-                style=f"bold {self.players.player_colors[0]}",
-            ),
+            Text(player1, style=f"bold {self.players.player_colors[player1]}"),
             Text("AND", style="green"),
-            Text(
-                self.players.player_names[1],
-                style=f"bold {self.players.player_colors[1]}",
-            ),
+            Text(player2, style=f"bold {self.players.player_colors[player2]}"),
             Text("Let the game begin!", style="green"),
         )
 
     def shuffle_players(self) -> None:
         """Shuffles the order of the players and their colors."""
-        tmp = self.players.player_names
-
         GameTools.animate_shuffle()
         random.shuffle(self.players.player_names)
 
-        if tmp[0] != self.players.player_names[0]:
-            self.players.player_colors = self.players.player_colors.reverse()
-            self.players.player_scores = self.players.player_scores.reverse()
-
-    def get_mark_colors(self) -> None:
-        """Generates colors for the X and O marks."""
-        self.players.mark_colors = GameTools.generate_colors()
-
     def get_player_marks(self) -> None:
         """Prompts the user to choose their mark (X or O) and displays it."""
+        player1, player2 = self.players.player_names
+        marks = ["X", "O"]
         console.print("\nChoose your mark", style="bold green underline")
-
         choice = Prompt.ask(
-            Text(self.players.player_names[0], style=self.players.player_colors[0]),
+            Text(player1, style=self.players.player_colors[player1]),
             choices=["x", "o"],
             default="x",
             show_default=False,
         ).upper()
 
-        self.players.player_marks = [choice] + [i for i in ["X", "O"] if i != choice]
+        self.players.player_marks[player1] = choice
+        marks.remove(choice)
+        self.players.player_marks[player2] = marks.pop()
 
         console.print(
-            Text(self.players.player_names[0], style=self.players.player_colors[0]),
+            Text(player1, style=self.players.player_colors[player1]),
             Text(
-                f"- {self.players.player_marks[0]}",
-                style=f"{self.players.mark_colors[0]}",
+                f"- {self.players.player_marks[player1]}",
+                style=f"{self.players.player_colors[player1]}",
             ),
-            Text(self.players.player_names[1], style=self.players.player_colors[1]),
+            Text(player2, style=self.players.player_colors[player2]),
             Text(
-                f"- {self.players.player_marks[1]}",
-                style=f"{self.players.mark_colors[1]}",
+                f"- {self.players.player_marks[player2]}",
+                style=f"{self.players.player_colors[player2]}",
             ),
         )
         console.print("Starting game..", style="green")
@@ -123,7 +113,8 @@ class PlayerManager:
 
     def initialize_player_scores(self) -> None:
         """Initializes the scores of the two players to 0."""
-        self.players.player_scores = [0, 0]
+        for player in self.players.player_names:
+            self.players.player_scores[player] = 0
 
 
 class GameManager:
@@ -169,28 +160,23 @@ class GameManager:
         current_player = 0
         while True:
             # calls the player_move function to let the current player make a move
+            player_name = self.game_display.players.player_names[current_player]
+            player_color = self.game_display.players.player_colors[player_name]
+            player_mark = self.game_display.players.player_marks[player_name]
             self.game_display.game.board = self.game_display.game.player_move(
-                self.game_display.players.player_names[current_player],
-                self.game_display.players.player_colors[current_player],
-                self.game_display.players.player_marks[current_player],
-                self.game_display.players.mark_colors[current_player],
+                player_name, player_color, player_mark
             )
             # displays the updated board after move
             self.game_display.display_board(round)
             # checks if the current player has won
-            if self.game_display.game.check_win(
-                self.game_display.players.player_marks[current_player]
-            ):
+            if self.game_display.game.check_win(player_mark):
                 console.print(
                     Text("Congratulations", style="green"),
-                    Text(
-                        self.game_display.players.player_names[current_player],
-                        style=self.game_display.players.player_colors[current_player],
-                    ),
+                    Text(player_name, style=player_color),
                     Text("you have won the game!", style="green"),
                 )
                 # increase the current player's score
-                self.game_display.players.player_scores[current_player] += 1
+                self.game_display.players.player_scores[player_name] += 1
                 return self.game_display.players.player_scores
             # checks if the game is a tie
             if self.game_display.game.check_tie():
@@ -294,7 +280,7 @@ class GameOptionManager:
         if exit_game == "yes":
             console.print(
                 "Thanks for playing! We hope you had a blast. See you next time for more fun and excitement!",
-                style="italic yellow",
+                style="italic rgb(255,255,0)",
             )
             return True
         # If the player chooses 'no', the function returns False

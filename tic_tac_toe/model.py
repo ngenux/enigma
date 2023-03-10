@@ -15,11 +15,10 @@ class Players:
             num_players (int): The number of players in the game.
         """
         self.num_players = num_players
-        self.player_names: List[str] = []
-        self.player_colors: List[str] = []
-        self.player_marks: List[str] = []
-        self.mark_colors: List[str] = []
-        self.player_scores: List[int] = []
+        self.player_names = list()
+        self.player_marks = dict()
+        self.player_colors = dict()
+        self.player_scores = dict()
 
 
 class Game:
@@ -36,7 +35,7 @@ class Game:
         ]
 
     def player_move(
-        self, player_name: str, player_color: str, player_mark: str, mark_color: str
+        self, player_name: str, player_color: str, player_mark: str
     ) -> List[List[str]]:
         """
         Handles a player's move in the game.
@@ -54,8 +53,10 @@ class Game:
             List of lists representing the updated game board after the player's move.
         """
         console.print(
-            Text(f"{player_name}'s Move -", style=f"bold {player_color} blink"),
-            Text(player_mark, style=f"bold {mark_color} blink"),
+            Text(
+                f"{player_name}'s Move - {player_mark}",
+                style=f"bold {player_color} blink",
+            ),
         )
         while True:
             row = (
@@ -81,7 +82,7 @@ class Game:
                     style="red",
                 )
                 continue
-            self.board[row][col] = [player_mark, mark_color]
+            self.board[row][col] = [player_mark, player_color]
             return self.board
 
     def check_win(self, player_mark: str) -> bool:
