@@ -28,7 +28,6 @@ if __name__ == "__main__":
             # Start the game
             game_option.start_game()
             # Shuffle players and get their mark colors and marks
-            player_manager.get_mark_colors()
             player_manager.get_player_marks()
             # Create game display and game manager instances and start the game loop
             game_display = GameDisplay(game, players)
