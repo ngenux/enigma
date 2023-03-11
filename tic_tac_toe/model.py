@@ -7,14 +7,10 @@ from utils import console
 class Players:
     """Represents the players in a game."""
 
-    def __init__(self, num_players: int = 2) -> None:
+    def __init__(self) -> None:
         """
         Initializes a new instance of the Players class.
-
-        Args:
-            num_players (int): The number of players in the game.
         """
-        self.num_players = num_players
         self.player_names = list()
         self.player_marks = dict()
         self.player_colors = dict()
